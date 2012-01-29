@@ -1343,6 +1343,11 @@ void Player::Update( uint32 update_diff, uint32 p_time )
     if (pet && !pet->IsWithinDistInMap(this, GetMap()->GetVisibilityDistance()) && (GetCharmGuid() && (pet->GetObjectGuid() != GetCharmGuid())))
         pet->Unsummon(PET_SAVE_REAGENTS, this);
 
+	if (GetZoneId() == 440)
+	{
+		SetPvP(false);
+	}
+
     if (IsHasDelayedTeleport())
         TeleportTo(m_teleport_dest, m_teleport_options);
 }
