@@ -1348,6 +1348,10 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 		SetPvP(false);
 		if (isDead())
 		{
+			if (GetPositionZ() < 0)
+			{
+				TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
+			}
 			ResurrectPlayer(0.5f);
 		}
 	}
@@ -6328,6 +6332,15 @@ void Player::DuelComplete(DuelCompleteType type)
     SetUInt32Value(PLAYER_DUEL_TEAM, 0);
     duel->opponent->SetGuidValue(PLAYER_DUEL_ARBITER, ObjectGuid());
     duel->opponent->SetUInt32Value(PLAYER_DUEL_TEAM, 0);
+
+	SetHealth(uint32(GetMaxHealth()));
+	SetPower(POWER_MANA, uint32(GetMaxPower(POWER_MANA)));
+	SetPower(POWER_RAGE, 0);
+	SetPower(POWER_ENERGY, uint32(GetMaxPower(POWER_ENERGY)));
+	duel->opponent->SetHealth(uint32(GetMaxHealth()));
+	duel->opponent->SetPower(POWER_MANA, uint32(GetMaxPower(POWER_MANA)));
+	duel->opponent->SetPower(POWER_RAGE, 0);
+	duel->opponent->SetPower(POWER_ENERGY, uint32(GetMaxPower(POWER_ENERGY)));
 
     delete duel->opponent->duel;
     duel->opponent->duel = NULL;
