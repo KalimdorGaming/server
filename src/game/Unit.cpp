@@ -652,7 +652,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
 			if (attacker->GetSession()->GetRemoteAddress() == victim->GetSession()->GetRemoteAddress())
-				return;
+				return true;
 			if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
 			{
 				attacker->StoreNewItemInBestSlots(55555,2);
