@@ -1355,6 +1355,48 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
 		}
 	}
+	else if (GetAreaId() == 2177 || GetAreaId() == 1741)
+	{
+		ResurrectPlayer(0.9f);
+		uint32 rand = urand(1,12);
+		switch (rand)
+		{
+			case 1:
+				TeleportTo(0,-13298.8f,173.844f,19,4.1198f,0);
+			break;
+			case 2:
+				TeleportTo(0,-13266.9f,184.901f,33,1.03552f,0);
+			break;
+			case 3:
+				TeleportTo(0,-13214.2f,183.747f,54,1.50676f,0);
+			break;
+			case 4:
+				TeleportTo(0,-13194.5f,186.083f,52,1.67562f,0);
+			break;
+			case 5:
+				TeleportTo(0,-13117.2f,260.478f,53,3.03672f,0);
+			break;
+			case 6:
+				TeleportTo(0,-13117.1f,279.355f,53,3.29591f,0);
+			break;
+			case 7:
+				TeleportTo(0,-13246.8f,346.889f,53,5.22485f,0);
+			break;
+			case 8:
+				TeleportTo(0,-13267.1f,334.032f,53,5.52881f,0);
+			break;
+			case 9:
+				TeleportTo(0,-13285.1f,237.871f,53,0.424498f,0);
+			break;
+			case 10:
+				TeleportTo(0,-13268.8f,213.8f,53,0.741801f,0);
+			break;
+			default:
+				TeleportTo(0,-13298.8f,173.844f,19,4.1198f,0);
+			break;
+		}
+
+	}
 
     if (IsHasDelayedTeleport())
         TeleportTo(m_teleport_dest, m_teleport_options);
@@ -6333,14 +6375,18 @@ void Player::DuelComplete(DuelCompleteType type)
     duel->opponent->SetGuidValue(PLAYER_DUEL_ARBITER, ObjectGuid());
     duel->opponent->SetUInt32Value(PLAYER_DUEL_TEAM, 0);
 
-	SetHealth(uint32(GetMaxHealth()));
-	SetPower(POWER_MANA, uint32(GetMaxPower(POWER_MANA)));
-	SetPower(POWER_RAGE, 0);
-	SetPower(POWER_ENERGY, uint32(GetMaxPower(POWER_ENERGY)));
-	duel->opponent->SetHealth(uint32(GetMaxHealth()));
-	duel->opponent->SetPower(POWER_MANA, uint32(GetMaxPower(POWER_MANA)));
-	duel->opponent->SetPower(POWER_RAGE, 0);
-	duel->opponent->SetPower(POWER_ENERGY, uint32(GetMaxPower(POWER_ENERGY)));
+	if (GetAreaId() != 2177)
+	{
+		SetHealth(GetMaxHealth());
+		SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
+		SetPower(POWER_RAGE, 0);
+		SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+
+		duel->opponent->SetHealth(GetMaxHealth());
+		duel->opponent->SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
+		duel->opponent->SetPower(POWER_RAGE, 0);
+		duel->opponent->SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+	}
 
     delete duel->opponent->duel;
     duel->opponent->duel = NULL;
