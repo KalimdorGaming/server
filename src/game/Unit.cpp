@@ -647,6 +647,22 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
     {
         DEBUG_FILTER_LOG(LOG_FILTER_DAMAGE,"DealDamage: victim just died");
 
+		if (pVictim->GetTypeId() == TYPEID_PLAYER && this->GetTypeId() == TYPEID_PLAYER)
+		{
+			Player *attacker = ToPlayer();
+			Player *victim = pVictim->ToPlayer();
+			if (attacker->GetSession()->GetRemoteAddress() == victim->GetSession()->GetRemoteAddress())
+				return;
+			if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
+			{
+				attacker->StoreNewItemInBestSlots(55555,2);
+			}
+			else
+			{
+				attacker->StoreNewItemInBestSlots(55555,1);
+			}
+		}
+
         // find player: owner of controlled `this` or `this` itself maybe
         // for loot will be sued only if group_tap==NULL
         Player *player_tap = GetCharmerOrOwnerPlayerOrPlayerItself();
