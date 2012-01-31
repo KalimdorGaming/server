@@ -641,6 +641,20 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
         }
     }
 
+	if (this->GetAreaId() == 142)
+	{
+		if (pVictim->GetTypeId() == TYPEID_PLAYER && this->GetTypeId() == TYPEID_PLAYER)
+		{
+			Player *attacker = ToPlayer();
+			Player *victim = pVictim->ToPlayer();
+			if (victim->GetAreaId() == 2177)
+			{
+				attacker->TeleportTo(victim->GetMapId(),victim->GetPositionX(),victim->GetPositionY(),victim->GetPositionZ(),victim->GetOrientation(),0);
+			}
+		}
+
+	}
+
     if (pVictim->GetTypeId() == TYPEID_UNIT && !((Creature*)pVictim)->IsPet() && !((Creature*)pVictim)->HasLootRecipient())
         ((Creature*)pVictim)->SetLootRecipient(this);
     if (health <= damage)
@@ -654,10 +668,12 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			if (attacker->GetSession()->GetRemoteAddress() != victim->GetSession()->GetRemoteAddress() && attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
 			{
 				attacker->StoreNewItemInBestSlots(55555,2);
+				attacker->ModifyMoney(+3000);
 			}
 			else
 			{
 				attacker->StoreNewItemInBestSlots(55555,1);
+				attacker->ModifyMoney(+2000);
 			}
 		}
 
