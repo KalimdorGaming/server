@@ -1350,7 +1350,7 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 		{
 			ResurrectPlayer(0.9f);
 		}
-		if (GetPositionZ() < 0)
+		if (GetPositionZ() < -50)
 		{
 			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
 		}
