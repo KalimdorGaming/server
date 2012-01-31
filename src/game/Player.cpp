@@ -1343,30 +1343,23 @@ void Player::Update( uint32 update_diff, uint32 p_time )
     if (pet && !pet->IsWithinDistInMap(this, GetMap()->GetVisibilityDistance()) && (GetCharmGuid() && (pet->GetObjectGuid() != GetCharmGuid())))
         pet->Unsummon(PET_SAVE_REAGENTS, this);
 
-	if (GetZoneId() == 440)
+	if (GetMapId() == 1 && GetZoneId() == 440)
 	{
 		SetPvP(false);
 		if (isDead())
 		{
-			ResurrectPlayer(0.9f);
+			ResurrectPlayer(0.5f);
 		}
 		if (GetPositionZ() < -50)
 		{
 			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
 		}
 	}
-	else if (GetAreaId() == 2177 || GetAreaId() == 1741)
+	else if (GetMapId() == 0 && GetAreaId() == 2177 || GetAreaId() == 1741)
 	{
-		if (GetPositionZ() < 21.5)
-		{
-			if (GetAreaId() == 2177)
-			{
-				TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),22,GetOrientation(),0);
-			}
-		}
 		if (isDead())
 		{
-			ResurrectPlayer(0.9f);
+			ResurrectPlayer(0.5f);
 			uint32 rand = urand(1,12);
 			switch (rand)
 			{
@@ -1404,6 +1397,10 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 				TeleportTo(0,-13298.8f,173.844f,19,4.1198f,0);
 				break;
 			}
+		}
+		if (GetPositionZ() < 21.5 && GetAreaId() == 2177)
+		{
+			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),22,GetOrientation(),0);
 		}
 	}
 
