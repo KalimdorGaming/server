@@ -1348,11 +1348,11 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 		SetPvP(false);
 		if (isDead())
 		{
-			if (GetPositionZ() < 0)
-			{
-				TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
-			}
-			ResurrectPlayer(0.5f);
+			ResurrectPlayer(0.9f);
+		}
+		if (GetPositionZ() < 0)
+		{
+			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),100,GetOrientation(),0);
 		}
 	}
 
