@@ -1357,45 +1357,47 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 	}
 	else if (GetAreaId() == 2177 || GetAreaId() == 1741)
 	{
-		ResurrectPlayer(0.9f);
-		uint32 rand = urand(1,12);
-		switch (rand)
+		if (isDead())
 		{
+			ResurrectPlayer(0.9f);
+			uint32 rand = urand(1,12);
+			switch (rand)
+			{
 			case 1:
 				TeleportTo(0,-13298.8f,173.844f,19,4.1198f,0);
-			break;
+				break;
 			case 2:
 				TeleportTo(0,-13266.9f,184.901f,33,1.03552f,0);
-			break;
+				break;
 			case 3:
 				TeleportTo(0,-13214.2f,183.747f,54,1.50676f,0);
-			break;
+				break;
 			case 4:
 				TeleportTo(0,-13194.5f,186.083f,52,1.67562f,0);
-			break;
+				break;
 			case 5:
 				TeleportTo(0,-13117.2f,260.478f,53,3.03672f,0);
-			break;
+				break;
 			case 6:
 				TeleportTo(0,-13117.1f,279.355f,53,3.29591f,0);
-			break;
+				break;
 			case 7:
 				TeleportTo(0,-13246.8f,346.889f,53,5.22485f,0);
-			break;
+				break;
 			case 8:
 				TeleportTo(0,-13267.1f,334.032f,53,5.52881f,0);
-			break;
+				break;
 			case 9:
 				TeleportTo(0,-13285.1f,237.871f,53,0.424498f,0);
-			break;
+				break;
 			case 10:
 				TeleportTo(0,-13268.8f,213.8f,53,0.741801f,0);
-			break;
+				break;
 			default:
 				TeleportTo(0,-13298.8f,173.844f,19,4.1198f,0);
-			break;
+				break;
+			}
 		}
-
 	}
 
     if (IsHasDelayedTeleport())
