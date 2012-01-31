@@ -1348,7 +1348,7 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 		SetPvP(false);
 		if (isDead())
 		{
-			ResurrectPlayer(0.5f);
+			ResurrectPlayer(0.9f);
 		}
 		if (GetPositionZ() < -50)
 		{
@@ -1359,7 +1359,7 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 	{
 		if (isDead())
 		{
-			ResurrectPlayer(0.5f);
+			ResurrectPlayer(0.9f);
 			uint32 rand = urand(1,12);
 			switch (rand)
 			{
