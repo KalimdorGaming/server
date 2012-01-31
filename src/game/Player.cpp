@@ -1357,6 +1357,10 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 	}
 	else if (GetAreaId() == 2177 || GetAreaId() == 1741)
 	{
+		if (GetPositionZ() < 20)
+		{
+			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),GetPositionZ(),GetOrientation(),0);
+		}
 		if (isDead())
 		{
 			ResurrectPlayer(0.9f);
