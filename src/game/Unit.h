@@ -979,6 +979,16 @@ class MANGOS_DLL_SPEC Unit : public WorldObject
         void AddToWorld();
         void RemoveFromWorld();
 
+		/* PvP System Begin */
+		uint32 KillStreak;
+		uint32 TotalKills;
+		uint32 TotalDeaths;
+		uint32 ALastGuid;
+		uint32 ALastGuidCount;
+		uint32 VLastGuid;
+		uint32 VLastGuidCount;
+		/* PvP System End */
+
         void CleanupsBeforeDelete();                        // used in ~Creature/~Player (or before mass creature delete to remove cross-references to already deleted units)
 
         float GetObjectBoundingRadius() const               // overwrite WorldObject version

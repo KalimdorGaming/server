@@ -50,6 +50,7 @@
 #include "DBCStores.h"
 #include "VMapFactory.h"
 #include "MovementGenerator.h"
+#include "Chat.h"
 
 #include <math.h>
 #include <stdarg.h>
@@ -665,15 +666,64 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 		{
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
-			if (attacker->GetSession()->GetRemoteAddress() != victim->GetSession()->GetRemoteAddress() && attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
+			bool GiveToken = true;
+			if (attacker->isGameMaster() == true || victim->isGameMaster() == true)
 			{
-				attacker->StoreNewItemInBestSlots(55555,2);
-				attacker->ModifyMoney(+3000);
+				victim->KillStreak = 0;
+				victim->TotalDeaths++;
 			}
 			else
 			{
-				attacker->StoreNewItemInBestSlots(55555,1);
-				attacker->ModifyMoney(+2000);
+				victim->KillStreak = 0;
+				victim->TotalDeaths++;
+				if (attacker == victim)
+				{
+					attacker->TotalDeaths++;
+					GiveToken = false;
+				}
+				else if (victim->HasAura(2479))
+				{
+					GiveToken = false;
+				}
+				else if (attacker->GetSession()->GetRemoteAddress() == victim->GetSession()->GetRemoteAddress())
+				{
+					GiveToken = false;
+				}
+				else if (victim->GetGUID() == attacker->ALastGuid || attacker->GetGUID() == victim->VLastGuid)
+				{
+					attacker->ALastGuidCount++;
+					victim->VLastGuidCount++;
+					if (attacker->ALastGuidCount >= 3 && attacker->ALastGuidCount <= 5 || victim->VLastGuidCount >= 3 && victim->VLastGuidCount <= 5)
+					{
+						GiveToken = false;
+					}
+					else if (attacker->ALastGuidCount > 5 && attacker->ALastGuidCount < 10 || victim->VLastGuidCount > 5 && victim->VLastGuidCount < 10)
+					{
+						GiveToken = false;
+					}
+					else if (attacker->ALastGuidCount >= 10 || victim->VLastGuidCount >= 10)
+					{
+						attacker->GetSession()->KickPlayer();
+						GiveToken = false;
+					}
+				}
+				else
+				{
+					attacker->ALastGuidCount = 0;
+				}
+            }
+			if(GiveToken == true)
+			{
+				if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
+				{
+					attacker->StoreNewItemInBestSlots(55555,2);
+					attacker->ModifyMoney(+3000);
+				}
+				else
+				{
+					attacker->StoreNewItemInBestSlots(55555,1);
+					attacker->ModifyMoney(+2000);
+				}
 			}
 		}
 

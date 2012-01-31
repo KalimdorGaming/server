@@ -1504,7 +1504,15 @@ void BattleGround::HandleKillPlayer( Player *player, Player *killer )
                 continue;
 
             if (plr->GetTeam() == killer->GetTeam() && plr->IsAtGroupRewardDistance(player))
+			{
                 UpdatePlayerScore(plr, SCORE_HONORABLE_KILLS, 1);
+				uint32 rand = urand(1,100);
+				if (rand < 30)
+				{
+					plr->StoreNewItemInBestSlots(55555,1);
+					plr->ModifyMoney(+700);
+				}
+			}
         }
     }
 
