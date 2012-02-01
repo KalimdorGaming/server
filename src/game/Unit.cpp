@@ -666,7 +666,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 		{
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
-			bool GiveToken = true;
+			/*bool GiveToken = true;
 			if (attacker->isGameMaster() == true || victim->isGameMaster() == true)
 			{
 				victim->KillStreak = 0;
@@ -691,8 +691,8 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 				}
 				else if (victim->GetGUID() == attacker->ALastGuid || attacker->GetGUID() == victim->VLastGuid)
 				{
-					attacker->ALastGuidCount++;
-					victim->VLastGuidCount++;
+					attacker->ALastGuidCount = attacker->ALastGuidCount+1;
+					victim->VLastGuidCount = victim->VLastGuidCount;
 					if (attacker->ALastGuidCount >= 3 && attacker->ALastGuidCount <= 5 || victim->VLastGuidCount >= 3 && victim->VLastGuidCount <= 5)
 					{
 						GiveToken = false;
@@ -704,6 +704,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					else if (attacker->ALastGuidCount >= 10 || victim->VLastGuidCount >= 10)
 					{
 						attacker->GetSession()->KickPlayer();
+						ChatHandler(victim->GetSession()).PSendSysMessage("Your attacker got kicked");
 						GiveToken = false;
 					}
 				}
@@ -715,7 +716,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			attacker->KillStreak++;
 			attacker->TotalKills++;
 			if(GiveToken == true)
-			{
+			{*/
 				if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
 				{
 					attacker->StoreNewItemInBestSlots(55555,2);
@@ -726,9 +727,9 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					attacker->StoreNewItemInBestSlots(55555,1);
 					attacker->ModifyMoney(+2000);
 				}
-			}
+			/*}
 			attacker->ALastGuid = victim->GetGUID();
-			victim->VLastGuid = attacker->GetGUID();
+			victim->VLastGuid = attacker->GetGUID();*/
 		}
 
         // find player: owner of controlled `this` or `this` itself maybe
