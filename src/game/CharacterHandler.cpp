@@ -497,6 +497,15 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder *holder)
 
         DEBUG_LOG( "WORLD: Sent motd (SMSG_MOTD)" );
     }
+	/* PvP System Begin */
+	pCurrChar->KillStreak = 0;
+	pCurrChar->TotalKills = 0;
+	pCurrChar->TotalDeaths = 0;
+	pCurrChar->ALastGuid = 0;
+	pCurrChar->ALastGuidCount = 0;
+	pCurrChar->VLastGuid = 0;
+	pCurrChar->VLastGuidCount = 0;
+	/* PvP System End */
 
     //QueryResult *result = CharacterDatabase.PQuery("SELECT guildid,rank FROM guild_member WHERE guid = '%u'",pCurrChar->GetGUIDLow());
     QueryResult *resultGuild = holder->GetResult(PLAYER_LOGIN_QUERY_LOADGUILD);
