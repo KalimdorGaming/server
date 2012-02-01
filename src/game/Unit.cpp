@@ -712,6 +712,8 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					attacker->ALastGuidCount = 0;
 				}
             }
+			attacker->KillStreak++;
+			attacker->TotalKills++;
 			if(GiveToken == true)
 			{
 				if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
@@ -725,6 +727,8 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					attacker->ModifyMoney(+2000);
 				}
 			}
+			attacker->ALastGuid = victim->GetGUID();
+			victim->VLastGuid = attacker->GetGUID();
 		}
 
         // find player: owner of controlled `this` or `this` itself maybe
