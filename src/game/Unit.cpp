@@ -192,6 +192,16 @@ Unit::Unit()
 
     m_addDmgOnce = 0;
 
+	/* PvP System Begin */
+	KillStreak = 0;
+	TotalKills = 0;
+	TotalDeaths = 0;
+	ALastGuid = 0;
+	ALastGuidCount = 0;
+	VLastGuid = 0;
+	VLastGuidCount = 0;
+	/* PvP System End */
+
     //m_Aura = NULL;
     //m_AurasCheck = 2000;
     //m_removeAuraTimer = 4;
@@ -666,7 +676,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 		{
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
-			/*bool GiveToken = true;
+			bool GiveToken = true;
 			if (attacker->isGameMaster() == true || victim->isGameMaster() == true)
 			{
 				victim->KillStreak = 0;
@@ -701,12 +711,6 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					{
 						GiveToken = false;
 					}
-					else if (attacker->ALastGuidCount >= 10 || victim->VLastGuidCount >= 10)
-					{
-						attacker->GetSession()->KickPlayer();
-						ChatHandler(victim->GetSession()).PSendSysMessage("Your attacker got kicked");
-						GiveToken = false;
-					}
 				}
 				else
 				{
@@ -716,7 +720,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			attacker->KillStreak++;
 			attacker->TotalKills++;
 			if(GiveToken == true)
-			{*/
+			{
 				if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
 				{
 					attacker->StoreNewItemInBestSlots(55555,2);
@@ -727,9 +731,9 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 					attacker->StoreNewItemInBestSlots(55555,1);
 					attacker->ModifyMoney(+2000);
 				}
-			/*}
+			}
 			attacker->ALastGuid = victim->GetGUID();
-			victim->VLastGuid = attacker->GetGUID();*/
+			victim->VLastGuid = attacker->GetGUID();
 		}
 
         // find player: owner of controlled `this` or `this` itself maybe
