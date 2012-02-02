@@ -701,13 +701,9 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 				}
 				else if (victim->GetGUID() == attacker->ALastGuid || attacker->GetGUID() == victim->VLastGuid)
 				{
-					attacker->ALastGuidCount = attacker->ALastGuidCount+1;
-					victim->VLastGuidCount = victim->VLastGuidCount;
-					if (attacker->ALastGuidCount >= 3 && attacker->ALastGuidCount <= 5 || victim->VLastGuidCount >= 3 && victim->VLastGuidCount <= 5)
-					{
-						GiveToken = false;
-					}
-					else if (attacker->ALastGuidCount > 5 && attacker->ALastGuidCount < 10 || victim->VLastGuidCount > 5 && victim->VLastGuidCount < 10)
+					attacker->ALastGuidCount++;
+					victim->VLastGuidCount++;
+					if (attacker->ALastGuidCount >= 3 || victim->VLastGuidCount >= 3)
 					{
 						GiveToken = false;
 					}
