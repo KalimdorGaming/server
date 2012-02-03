@@ -16867,6 +16867,7 @@ void Player::InitDisplayIds()
 // Return true is the bought item has a max count to force refresh of window by caller
 bool Player::BuyItemFromVendor(ObjectGuid vendorGuid, uint32 item, uint8 count, uint8 bag, uint8 slot)
 {
+	bool canbuy = true;
     // cheating attempt
     if (count < 1) count = 1;
 
@@ -16955,6 +16956,15 @@ bool Player::BuyItemFromVendor(ObjectGuid vendorGuid, uint32 item, uint8 count, 
         SendBuyError(BUY_ERR_NOT_ENOUGHT_MONEY, pCreature, item, 0);
         return false;
     }
+
+	if (GetItemCount(55555,false,0) < crItem->StupidToken)
+	{
+		ChatHandler(GetSession()).PSendSysMessage("You need atleast %u Stupid Tokens",crItem->StupidToken);
+		canbuy = false;
+	}
+
+	if(canbuy == false)
+		return false;
 
     Item* pItem = NULL;
 

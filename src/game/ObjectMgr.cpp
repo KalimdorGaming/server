@@ -7411,7 +7411,7 @@ void ObjectMgr::LoadVendors(char const* tableName, bool isTemplates)
 
     std::set<uint32> skip_vendors;
 
-    QueryResult *result = WorldDatabase.PQuery("SELECT entry, item, maxcount, incrtime FROM %s", tableName);
+    QueryResult *result = WorldDatabase.PQuery("SELECT entry, item, maxcount, incrtime, stupidcost FROM %s", tableName);
     if (!result)
     {
         BarGoLink bar(1);
@@ -7435,13 +7435,14 @@ void ObjectMgr::LoadVendors(char const* tableName, bool isTemplates)
         uint32 item_id      = fields[1].GetUInt32();
         uint32 maxcount     = fields[2].GetUInt32();
         uint32 incrtime     = fields[3].GetUInt32();
+		uint32 stupidcost   = fields[4].GetUInt32();
 
         if (!IsVendorItemValid(isTemplates, tableName, entry, item_id, maxcount, incrtime, NULL, &skip_vendors))
             continue;
 
         VendorItemData& vList = vendorList[entry];
 
-        vList.AddItem(item_id, maxcount, incrtime);
+        vList.AddItem(item_id, maxcount, incrtime, stupidcost);
         ++count;
 
     } while (result->NextRow());
@@ -7825,7 +7826,7 @@ void ObjectMgr::LoadGossipMenuItems()
 void ObjectMgr::AddVendorItem( uint32 entry,uint32 item, uint32 maxcount, uint32 incrtime )
 {
     VendorItemData& vList = m_mCacheVendorItemMap[entry];
-    vList.AddItem(item,maxcount,incrtime);
+    vList.AddItem(item,maxcount,incrtime,0);
 
     WorldDatabase.PExecuteLog("INSERT INTO npc_vendor (entry,item,maxcount,incrtime) VALUES('%u','%u','%u','%u')",entry, item, maxcount,incrtime);
 }

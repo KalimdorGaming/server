@@ -281,12 +281,13 @@ enum AttackingTarget
 // Vendors
 struct VendorItem
 {
-    VendorItem(uint32 _item, uint32 _maxcount, uint32 _incrtime)
-        : item(_item), maxcount(_maxcount), incrtime(_incrtime) {}
+    VendorItem(uint32 _item, uint32 _maxcount, uint32 _incrtime, uint32 _StupidToken)
+        : item(_item), maxcount(_maxcount), incrtime(_incrtime), StupidToken(_StupidToken) {}
 
     uint32 item;
     uint32 maxcount;                                        // 0 for infinity item amount
     uint32 incrtime;                                        // time for restore items amount if maxcount != 0
+	uint32 StupidToken;
 };
 typedef std::vector<VendorItem*> VendorItemList;
 
@@ -301,9 +302,9 @@ struct VendorItemData
     }
     bool Empty() const { return m_items.empty(); }
     uint8 GetItemCount() const { return m_items.size(); }
-    void AddItem( uint32 item, uint32 maxcount, uint32 ptime)
+    void AddItem( uint32 item, uint32 maxcount, uint32 ptime, uint32 StupidToken)
     {
-        m_items.push_back(new VendorItem(item, maxcount, ptime));
+        m_items.push_back(new VendorItem(item, maxcount, ptime, StupidToken));
     }
     bool RemoveItem( uint32 item_id );
     VendorItem const* FindItem(uint32 item_id) const;
