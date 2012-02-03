@@ -6387,15 +6387,8 @@ void Player::DuelComplete(DuelCompleteType type)
 
 	if (GetAreaId() != 2177)
 	{
-		SetHealth(GetMaxHealth());
-		SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
-		SetPower(POWER_RAGE, 0);
-		SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
-
-		duel->opponent->SetHealth(GetMaxHealth());
-		duel->opponent->SetPower(POWER_MANA, GetMaxPower(POWER_MANA));
-		duel->opponent->SetPower(POWER_RAGE, 0);
-		duel->opponent->SetPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));
+		ResurrectPlayer(0.9f);
+		duel->opponent->ResurrectPlayer(0.9f);
 	}
 
     delete duel->opponent->duel;
