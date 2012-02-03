@@ -1357,6 +1357,10 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 	}
 	else if (GetMapId() == 0 && GetAreaId() == 2177 || GetAreaId() == 1741)
 	{
+		if (GetGroup() && GetAreaId() == 2177)
+		{
+			GetGroup()->RemoveMember(GetObjectGuid(),1);
+		}
 		if (isDead())
 		{
 			ResurrectPlayer(0.9f);

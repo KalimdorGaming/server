@@ -703,7 +703,7 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 				{
 					attacker->ALastGuidCount++;
 					victim->VLastGuidCount++;
-					if (attacker->ALastGuidCount >= 3 || victim->VLastGuidCount >= 3)
+					if (attacker->ALastGuidCount >= 6 || victim->VLastGuidCount >= 6)
 					{
 						GiveToken = false;
 					}
