@@ -16959,6 +16959,10 @@ bool Player::BuyItemFromVendor(ObjectGuid vendorGuid, uint32 item, uint8 count, 
 		ChatHandler(GetSession()).PSendSysMessage("You need atleast %u Stupid Tokens",crItem->StupidToken);
 		canbuy = false;
 	}
+	else
+	{
+		DestroyItemCount(55555, crItem->StupidToken,true,false);
+	}
 
 	if(canbuy == false)
 		return false;
