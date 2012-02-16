@@ -6199,6 +6199,10 @@ void Player::UpdateArea(uint32 newArea)
         if(IsFFAPvP() && !sWorld.IsFFAPvPRealm())
             SetFFAPvP(false);
     }
+	if (isInCombat() && newArea == 1741)
+	{
+		TeleportTo(0,-13218.1,246.945,21.8575,1.13591);
+	}
 
     UpdateAreaDependentAuras();
 }
