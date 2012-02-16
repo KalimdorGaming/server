@@ -6061,6 +6061,12 @@ bool Player::RewardHonor(Unit *uVictim,uint32 groupsize)
     {
         Player *pVictim = (Player *)uVictim;
 
+		uint32 rand = urand(1,100);
+		if (rand >= 50)
+		{
+			StoreNewItemInBestSlots(55555,1);
+		}
+
         if( GetTeam() == pVictim->GetTeam() )
             return false;
 
@@ -6201,7 +6207,7 @@ void Player::UpdateArea(uint32 newArea)
     }
 	if (isInCombat() && newArea == 1741)
 	{
-		TeleportTo(0,-13218.1,246.945,21.8575,1.13591);
+		TeleportTo(0,-13218.1f,246.945f,21.8575f,1.13591f);
 	}
 
     UpdateAreaDependentAuras();
