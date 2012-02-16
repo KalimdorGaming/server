@@ -6202,7 +6202,7 @@ void Player::UpdateArea(uint32 newArea)
 	if (isInCombat() && newArea == 1741)
 	{
 		TeleportTo(0,-13218.1f,246.945f,21.8575f,1.13591f);
-		ChatHandler(GetSession()).PSendSysMessage("Coward, you cannot leave the arena while you are in combat!")
+		ChatHandler(GetSession()).PSendSysMessage("Coward, you cannot leave the arena while you are in combat!");
 	}
 
     UpdateAreaDependentAuras();
@@ -19251,4 +19251,13 @@ bool Player::IsImmuneToSpellEffect(SpellEntry const* spellInfo, SpellEffectIndex
             break;
     }
     return Unit::IsImmuneToSpellEffect(spellInfo, index);
+}
+
+void Player::DamagedOrHealed(ObjectGuid guid, uint32 damage, uint32 heal)
+{
+	DamageHealData *data = NULL;
+	if (data != m_DamagersAndHealers[guid])
+		m_DamagersAndHealers[guid] = new DamageHealData();
+	data->damage += damage;
+	data->healing += heal;
 }

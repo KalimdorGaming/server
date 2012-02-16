@@ -839,6 +839,13 @@ class TradeData
         ObjectGuid m_items[TRADE_SLOT_COUNT];               // traded itmes from m_player side including non-traded slot
 };
 
+struct DamageHealData
+{
+	DamageHealData() : damage(0), healing(0) { }
+	uint32 damage;
+	uint32 healing;
+};
+
 class MANGOS_DLL_SPEC Player : public Unit
 {
     friend class WorldSession;
@@ -847,6 +854,9 @@ class MANGOS_DLL_SPEC Player : public Unit
     public:
         explicit Player (WorldSession *session);
         ~Player ( );
+
+		std::map<ObjectGuid, DamageHealData*> m_DamagersAndHealers;
+		void DamagedOrHealed(ObjectGuid guid, uint32 damage, uint32 heal);
 
         void CleanupsBeforeDelete();
 
