@@ -920,7 +920,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
                 if (!buildInfo)
                     buildInfo = &i->second.realmBuildInfo;
 
-                RealmFlags realmflags = i->second.realmflags;
+                RealmFlags realmflags = 0x04;
 
                 // 1.x clients not support explicitly REALM_FLAG_SPECIFYBUILD, so manually form similar name as show in more recent clients
                 std::string name = i->first;
@@ -936,7 +936,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
                     realmflags = RealmFlags(realmflags | REALM_FLAG_OFFLINE);
 
                 pkt << uint32(i->second.icon);              // realm type
-                pkt << uint8(realmflags);                   // realmflags
+                pkt << uint8(0x04);                   // realmflags
                 pkt << name;                                // name
                 pkt << i->second.address;                   // address
                 pkt << float(i->second.populationLevel);
@@ -983,7 +983,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
 
                 uint8 lock = (i->second.allowedSecurityLevel > _accountSecurityLevel) ? 1 : 0;
 
-                RealmFlags realmFlags = i->second.realmflags;
+                RealmFlags realmFlags = 0x04;
 
                 // Show offline state for unsupported client builds
                 if (!ok_build)
@@ -994,7 +994,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
 
                 pkt << uint8(i->second.icon);               // realm type (this is second column in Cfg_Configs.dbc)
                 pkt << uint8(lock);                         // flags, if 0x01, then realm locked
-                pkt << uint8(realmFlags);                   // see enum RealmFlags
+                pkt << uint8(0x04);                   // see enum RealmFlags
                 pkt << i->first;                            // name
                 pkt << i->second.address;                   // address
                 pkt << float(i->second.populationLevel);
