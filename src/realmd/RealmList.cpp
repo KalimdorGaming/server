@@ -89,7 +89,7 @@ void RealmList::UpdateRealm( uint32 ID, const std::string& name, const std::stri
 
     realm.m_ID       = ID;
     realm.icon       = icon;
-    realm.realmflags = realmflags;
+    realm.realmflags = 64;
     realm.timezone   = timezone;
     realm.allowedSecurityLevel = allowedSecurityLevel;
     realm.populationLevel      = popu;
