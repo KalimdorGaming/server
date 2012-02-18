@@ -679,13 +679,6 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
 
-// 			for (std::map<ObjectGuid, DamageHealData*>::iterator itr = attacker->m_DamagersAndHealers.begin(); itr != attacker->m_DamagersAndHealers.end(); ++itr)
-// 			{
-// 				if (itr->second->healing > 0)
-// 				{
-// 					//ChatHandler(attacker->GetSession()).PSendSysMessage("Player %u healed %u",itr->second->healing);
-// 				}
-// 			}
 			bool GiveToken = true;
 			if (attacker->isGameMaster() == true || victim->isGameMaster() == true)
 			{

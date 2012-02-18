@@ -1343,7 +1343,7 @@ void Player::Update( uint32 update_diff, uint32 p_time )
     if (pet && !pet->IsWithinDistInMap(this, GetMap()->GetVisibilityDistance()) && (GetCharmGuid() && (pet->GetObjectGuid() != GetCharmGuid())))
         pet->Unsummon(PET_SAVE_REAGENTS, this);
 
-	if (GetMapId() == 1 && GetZoneId() == 440)
+	if (GetMapId() == 1 && GetZoneId() == 440 && GetAreaId() == 2317)
 	{
 		SetPvP(false);
 		if (isDead())
