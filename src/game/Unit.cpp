@@ -532,6 +532,8 @@ void Unit::DealDamageMods(Unit *pVictim, uint32 &damage, uint32* absorb)
 
 uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDamage, DamageEffectType damagetype, SpellSchoolMask damageSchoolMask, SpellEntry const *spellProto, bool durabilityLoss)
 {
+	if (GetTypeId() == TYPEID_PLAYER && pVictim->GetTypeId() == TYPEID_PLAYER)
+		((Player*)pVictim)->DamagedOrHealed(GetObjectGuid(), damage, 0);
     // remove affects from victim (including from 0 damage and DoTs)
     if(pVictim != this)
         pVictim->RemoveSpellsCausingAura(SPELL_AURA_MOD_STEALTH);
@@ -676,6 +678,14 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 		{
 			Player *attacker = ToPlayer();
 			Player *victim = pVictim->ToPlayer();
+
+// 			for (std::map<ObjectGuid, DamageHealData*>::iterator itr = attacker->m_DamagersAndHealers.begin(); itr != attacker->m_DamagersAndHealers.end(); ++itr)
+// 			{
+// 				if (itr->second->healing > 0)
+// 				{
+// 					//ChatHandler(attacker->GetSession()).PSendSysMessage("Player %u healed %u",itr->second->healing);
+// 				}
+// 			}
 			bool GiveToken = true;
 			if (attacker->isGameMaster() == true || victim->isGameMaster() == true)
 			{
@@ -5241,6 +5251,9 @@ void Unit::UnsummonAllTotems()
 
 int32 Unit::DealHeal(Unit *pVictim, uint32 addhealth, SpellEntry const *spellProto, bool critical)
 {
+	if (GetTypeId() == TYPEID_PLAYER && pVictim->GetTypeId() == TYPEID_PLAYER)
+		((Player*)pVictim)->DamagedOrHealed(GetObjectGuid(), 0, addhealth);
+
     int32 gain = pVictim->ModifyHealth(int32(addhealth));
 
     if (pVictim->GetTypeId() == TYPEID_UNIT && ((Creature*)pVictim)->AI())
