@@ -920,7 +920,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
                 if (!buildInfo)
                     buildInfo = &i->second.realmBuildInfo;
 
-                RealmFlags realmflags = 0x04;
+                RealmFlags realmflags = i->second.realmflags;
 
                 // 1.x clients not support explicitly REALM_FLAG_SPECIFYBUILD, so manually form similar name as show in more recent clients
                 std::string name = i->first;
@@ -983,7 +983,7 @@ void AuthSocket::LoadRealmlist(ByteBuffer &pkt, uint32 acctid)
 
                 uint8 lock = (i->second.allowedSecurityLevel > _accountSecurityLevel) ? 1 : 0;
 
-                RealmFlags realmFlags = 0x04;
+                RealmFlags realmFlags = i->second.realmflags;
 
                 // Show offline state for unsupported client builds
                 if (!ok_build)
