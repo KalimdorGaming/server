@@ -697,10 +697,14 @@ void BattleGround::EndBattleGround(Team winner)
         if (team == winner)
         {
             RewardMark(plr,ITEM_WINNER_COUNT);
+            plr->StoreNewItemInBestSlots(55555,30);
             RewardQuestComplete(plr);
         }
         else
+        {
             RewardMark(plr,ITEM_LOSER_COUNT);
+            plr->StoreNewItemInBestSlots(55555,10);
+        }
 
         plr->CombatStopWithPets(true);
 
