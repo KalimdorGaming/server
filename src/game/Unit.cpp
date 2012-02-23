@@ -532,6 +532,15 @@ void Unit::DealDamageMods(Unit *pVictim, uint32 &damage, uint32* absorb)
 
 uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDamage, DamageEffectType damagetype, SpellSchoolMask damageSchoolMask, SpellEntry const *spellProto, bool durabilityLoss)
 {
+    if (pVictim->GetTypeId() == TYPEID_PLAYER && this->GetTypeId() == TYPEID_PLAYER)
+    {
+        Player *attacker = ToPlayer();
+        Player *victim = pVictim->ToPlayer();
+        if (attacker->GetAreaId() == 1741 && victim->GetAreaId() == 2177)
+        {
+            attacker->TeleportTo(victim->GetMapId(),victim->GetPositionX(),victim->GetPositionY(),victim->GetPositionZ()+1,attacker->GetOrientation());
+        }
+    }
     // remove affects from victim (including from 0 damage and DoTs)
     if(pVictim != this)
         pVictim->RemoveSpellsCausingAura(SPELL_AURA_MOD_STEALTH);
@@ -5242,6 +5251,16 @@ void Unit::UnsummonAllTotems()
 
 int32 Unit::DealHeal(Unit *pVictim, uint32 addhealth, SpellEntry const *spellProto, bool critical)
 {
+    if (pVictim->GetTypeId() == TYPEID_PLAYER && this->GetTypeId() == TYPEID_PLAYER)
+    {
+        Player *attacker = ToPlayer();
+        Player *victim = pVictim->ToPlayer();
+        if (attacker->GetAreaId() == 1741 && victim->GetAreaId() == 2177)
+        {
+            attacker->TeleportTo(victim->GetMapId(),victim->GetPositionX(),victim->GetPositionY(),victim->GetPositionZ()+1,attacker->GetOrientation());
+        }
+    }
+
     int32 gain = pVictim->ModifyHealth(int32(addhealth));
 
     if (pVictim->GetTypeId() == TYPEID_UNIT && ((Creature*)pVictim)->AI())
