@@ -16869,6 +16869,7 @@ void Player::InitDisplayIds()
 // Return true is the bought item has a max count to force refresh of window by caller
 bool Player::BuyItemFromVendor(ObjectGuid vendorGuid, uint32 item, uint8 count, uint8 bag, uint8 slot)
 {
+    UpdateSkillsToMaxSkillsForLevel();
 	bool canbuy = true;
     // cheating attempt
     if (count < 1) count = 1;
