@@ -1406,6 +1406,12 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 		{
 			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),22,GetOrientation(),0);
 		}
+        if (GetAreaId() == 3277 && GetPositionZ() < 275)
+        {
+            TerrainInfo const *map = GetTerrain();
+            float ground_z = map->GetHeight(GetPositionX(), GetPositionY(), MAX_HEIGHT);
+            TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation());
+        }
 	}
 
     if (IsHasDelayedTeleport())
