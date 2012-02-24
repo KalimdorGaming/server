@@ -1415,10 +1415,13 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 //             TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation());
 //         }
              TerrainInfo const *map = GetTerrain();
-             float floor_z = map->GetHeight(GetPositionX(), GetPositionY(), GetPositionZ()+1);
-             if (GetPositionZ() < floor_z-2)
+             float floor_z = map->GetHeight(GetPositionX(), GetPositionY(), GetPositionZ());
+             //ChatHandler(GetSession()).PSendSysMessage("Position: %f Floor: %f",GetPositionZ(),floor_z);
+             if (GetPositionZ() < floor_z)
              {
-                 TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),floor_z+2,GetOrientation());
+                 float variable_1 = 1;
+                 ChatHandler(GetSession()).PSendSysMessage("You got teleported back up, because Kruslocks is awesome!");
+                 TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),floor_z+variable_1,GetOrientation());
              }
 	}
 
