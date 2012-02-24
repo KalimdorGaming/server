@@ -1402,18 +1402,24 @@ void Player::Update( uint32 update_diff, uint32 p_time )
 				break;
 			}
 		}
-		if (GetPositionZ() < 21.5 && GetAreaId() == 2177)
-		{
-            TerrainInfo const *map = GetTerrain();
-            float ground_z = map->GetHeight(GetPositionX(), GetPositionY(), MAX_HEIGHT);
-			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation(),0);
-		}
-        if (GetAreaId() == 3277 && GetPositionZ() < 275)
-        {
-            TerrainInfo const *map = GetTerrain();
-            float ground_z = map->GetHeight(GetPositionX(), GetPositionY(), MAX_HEIGHT);
-            TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation());
-        }
+// 		if (GetPositionZ() < 21.5 && GetAreaId() == 2177)
+// 		{
+//             TerrainInfo const *map = GetTerrain();
+//             float ground_z = map->GetHeight(GetPositionX(), GetPositionY(), MAX_HEIGHT);
+// 			TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation(),0);
+// 		}
+//         if (GetAreaId() == 3277 && GetPositionZ() < 275)
+//         {
+//             TerrainInfo const *map = GetTerrain();
+//             float ground_z = map->GetHeight(GetPositionX(), GetPositionY(), MAX_HEIGHT);
+//             TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),ground_z+2,GetOrientation());
+//         }
+             TerrainInfo const *map = GetTerrain();
+             float floor_z = map->GetHeight(GetPositionX(), GetPositionY(), GetPositionZ()+1);
+             if (GetPositionZ() < floor_z-2)
+             {
+                 TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),floor_z+2,GetOrientation());
+             }
 	}
 
     if (IsHasDelayedTeleport())
