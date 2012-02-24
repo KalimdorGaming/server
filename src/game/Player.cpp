@@ -1417,9 +1417,9 @@ void Player::Update( uint32 update_diff, uint32 p_time )
              TerrainInfo const *map = GetTerrain();
              float floor_z = map->GetHeight(GetPositionX(), GetPositionY(), GetPositionZ());
              //ChatHandler(GetSession()).PSendSysMessage("Position: %f Floor: %f",GetPositionZ(),floor_z);
-             if (GetPositionZ() < floor_z)
+             float variable_1 = 1;
+             if (GetPositionZ() < floor_z-variable_1)
              {
-                 float variable_1 = 1;
                  ChatHandler(GetSession()).PSendSysMessage("You got teleported back up, because Kruslocks is awesome!");
                  TeleportTo(GetMapId(),GetPositionX(),GetPositionY(),floor_z+variable_1,GetOrientation());
              }
