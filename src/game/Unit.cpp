@@ -729,13 +729,13 @@ uint32 Unit::DealDamage(Unit *pVictim, uint32 damage, CleanDamage const* cleanDa
 			{
 				if (attacker->GetMapId() == 489 || attacker->GetMapId() == 529)
 				{
-					attacker->StoreNewItemInBestSlots(55555,2);
+					attacker->StoreNewItemInBestSlots(55555,1);
 					attacker->ModifyMoney(+3000);
 				}
 				else
 				{
-					attacker->StoreNewItemInBestSlots(55555,1);
-					attacker->ModifyMoney(+2000);
+					attacker->StoreNewItemInBestSlots(55555,2);
+					attacker->ModifyMoney(+4000);
 				}
 			}
 			attacker->ALastGuid = victim->GetGUID();
